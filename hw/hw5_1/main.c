@@ -1,3 +1,5 @@
+// https://acm.cs.nthu.edu.tw/problem/11729/
+
 /*
 There are multiple lines in each test case.
 
@@ -71,22 +73,67 @@ void check_if_two_blank(char *a, int start)
     //this__is => is__this
     for(int i=0; i<strlen(a); i++){
         if(a[i] == a[i-1] && a[i] == ' '){
+
           // printf("enter\n");
           a[i] = a[i+1];
           two_blank = 1;
         }
-        if(two_blank == 1){
+        if(two_blank == 1 && a[i] != ' '){
           a[i] = a[i+1];
           // if two_blank appears again, shift array again
           check_if_two_blank(a, i);
         }
     }
+     
+}
+
+void dump(char *a) {
+    // method 1
+    /*
+    for(int i=0; i<strlen(a); i++){
+        printf("%c", a[i]);
+    }
+    printf("\n");*/
+
+    // method 2
+    /*
+    for(int i=0; i<strlen(a); i++){
+        printf("%d ", a[i]);
+    }
+    printf("\n");*/
+
+    // method 3
+    bool first_word = true;
+    bool wording = false;
+    int sentence_length = strlen(a);
+    for (int j=0; j<sentence_length; j++) {
+      if (a[j] == ' ') {
+        wording = false;
+      }
+      else {
+        // i.e. a[i] != ' '
+
+        if (!wording) {
+          if (first_word) {
+            first_word = false;
+          }
+          else {
+            printf(" ");
+          }
+        }
+
+        printf("%c", a[j]);
+        wording = true;
+      }
+    }
+    printf("\n");
 }
 
 int main(void)
 {  
   char a[111];
   for(int i=0; i<10; i++){
+    
     if(fgets(a, 99, stdin) != NULL) {
       if(strlen(a) > 1){
         // update aa
@@ -103,48 +150,17 @@ int main(void)
         // then aa = 'xx y zz'
         //
 
-        bool first_word = true;
-        bool wording = false;
-        int next = 0;
-        int sentence_length = strlen(a);
-        for (int j=0; j<sentence_length; j++) {
-          if (a[j] == ' ') {
-            wording = false;
-          }
-          else {
-            // i.e. a[i] != ' '
-
-            if (!wording) {
-              if (first_word) {
-                first_word = false;
-              }
-              else {
-                a[next++] = ' ';
-              }
-            }
-
-            a[next++] = a[j];
-
-            wording = true;
-          }
-        }
-        a[next++] = '\n';
-
-        // debug by dumping aa
-        for (int j=0; j<next; j++) {
-          printf("%c", a[j]);
-        }
-        
+        a[strlen(a)-1] = 32;
+        a[strlen(a)] = 0;
         sentence_reversal(a);
-        for (int j=1; j<next; j++) {
-          printf("%c", a[j]);
-        }
+        dump(a);
       }
       else {
         // i.e. a == '\n'
         printf("\n");
       }
     }
+    
 
     
     /*
@@ -160,15 +176,40 @@ int main(void)
         }
         
         a[strlen(a)-1] = ' ';
+
         sentence_reversal(a);
   
 
         // this is_ => _is this_
-        if(a[0] == ' '){
-          for(int i=0; i<strlen(a); i++){
-            a[i] = a[i+1];
-          }
+        int count = 0;
+        int not_blank_index = 0;
+        for(int i=0; a[i] != ' '; i++){
+          count++;
+          not_blank_index = i;
         }
+        not_blank_index++;
+        printf("c=%d\n", count);
+        printf("n=%d\n", not_blank_index);
+        //   for(int i=0; i<strlen(a); i++){
+        //     a[i] = a[i+1];
+        //   }
+        for(int i=0; i<count; i++){
+          a[i] = a[not_blank_index];
+          not_blank_index++;
+        }
+        
+          when a[i] != ' ';
+          a[i] = a[0]; 
+          a[i+1] = a[1];
+          a[i+2] = a[2];
+          ...
+          to a[i] == '\n'
+        
+
+        // for(int i=0; i<strlen(a)-1; i++){
+        //   printf("%c", a[i]);
+        // }
+        // printf("\n");
         
         // check_if_two_blank(a, 0);
 
@@ -187,6 +228,7 @@ int main(void)
     else {
       printf("\n");
     }*/
+
   }
 
   return 0;
