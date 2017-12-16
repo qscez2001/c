@@ -4,7 +4,7 @@
 // First line is an integer T (T <= 20) followed by T test cases.
 
 // Each test case consists of two lines. 
-// First line is an integer n (n <= 104), 
+// First line is an integer n (n <= 10^4), 
 // and second line contains n integers V1, V2, ..., Vn. 
 // (-231< Vi < 231-1 for 1 <= i <= n )
 
@@ -15,6 +15,11 @@
 
 #include<stdio.h>
 
+int T;
+
+int n;
+int a[10000] = {0};
+int flag = 0;
 void swap(int *a, int *b)
 {
     int temp = *a;
@@ -25,10 +30,7 @@ void swap(int *a, int *b)
 int main()
 {
   //scan T test cases
-  int T;
   scanf("%d", &T);
-  int n;
-  int a[105] = {0};
   for(int i=0;i<T;i++)
   {
     //scan two lines
@@ -43,7 +45,7 @@ int main()
 
     //sort the array from the smallest one to the largest one ending with '\n'. 
     //use bubble sort..
-    int flag = 0;
+    
     for(int k=0;k<(n-1);k++)
     {
       for(int l=0;l<n-k-1;l++)
@@ -59,11 +61,11 @@ int main()
       }
     }
 
-    for(int p=0;p<n;p++)
+    for(int p=0;p<n-1;p++)
     {
       printf("%d ", a[p]);
     }
-    printf("\n");
+    printf("%d\n", a[n-1]);
   }
 
   return 0;
