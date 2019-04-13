@@ -23,48 +23,41 @@ Please output the number of different strings you can obtain by reversing any su
 
 */
 #include <stdio.h>
+#include <string.h>
 char a[200000];
-
-//ex. this is 
-
-void flip(char *b, int k, int l)
+char b[200000];
+/*
+void swap(char *x, char *y)
 {
-    //a, 0, 3
-    //a, 0, 6
-    int tmp;
-  for ( ; k<l ; k++, l--) {
-    tmp = b[k];
-    b[k] = b[l];
-    b[l] = tmp;
-    // printf("b[%d]=%c, b[%d]=%c\n", k, b[k], l, b[l]);
-  }
+    char temp;
+    temp = *x;
+    *x = *y;
+    *y = temp;
 }
-
-void sentence_reversal(char *a)
-{
-  //"this is a book \0"
-  int i, j;
-  j = 0;
-  for (i=0; a[i]!='\0'; i++) {
-    if (a[i] == ' ') {
-      //a, 0, 3
-      flip(a, j, i-1);
-      //j=1
-      j = i+1;
-    }
-
-  }
-  // printf("enter\n");
-  //a, 0, 8
-  flip(a, 0, strlen(a)-2);
-  // printf("%d\n", strlen(a));
-
-  // printf("%s\n", a);
-}
+*/
 
 int main(){
 
   scanf("%s", &a);
-  printf("%s\n", a);
+  
+  // case: aatt
+
+  int count = 1;
+  
+  int len = strlen(a);
+  for(int i=0; i<len; i++){
+    for(int j=i+1; j<len; j++){
+      if (a[i] == a[j]) {
+        // printf("a[%d]=%c, a[%d]=%c", i,a[i], j, a[j]); 
+        continue;
+      }
+      else count++;
+    }
+  }
+  
+  
+  printf("%d\n", count);
+  
+  return 0;
 }
 

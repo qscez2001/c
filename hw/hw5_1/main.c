@@ -67,25 +67,7 @@ void sentence_reversal(char *a)
 
   // printf("%s\n", a);
 }
-int two_blank = 0;
-void check_if_two_blank(char *a, int start)
-{
-    //this__is => is__this
-    for(int i=0; i<strlen(a); i++){
-        if(a[i] == a[i-1] && a[i] == ' '){
 
-          // printf("enter\n");
-          a[i] = a[i+1];
-          two_blank = 1;
-        }
-        if(two_blank == 1 && a[i] != ' '){
-          a[i] = a[i+1];
-          // if two_blank appears again, shift array again
-          check_if_two_blank(a, i);
-        }
-    }
-     
-}
 
 void dump(char *a) {
     // method 1

@@ -123,15 +123,23 @@ int rule_one_wrong(char *b, char *c) {
 // (4) Niflheimr accidentally switches two different adjacent characters.
 int rule_switch_two(char *b, char *c) {
   // (4) Niflheimr accidentally switches two different adjacent characters.
-  for(int j=0; j<strlen(b); j++){
-    if(b[j] == c[j+1] && b[j+1] == c[j]) {
-      return 1;
+  if(strlen(b) == strlen(c)){
+    for(int j=0; j<strlen(b); j++){
+      if(b[j] == c[j+1] && b[j+1] == c[j]) {
+        if(b[j] == c[j]) {
+          return 0;
+        }
+        else return 1;
+      }
     }
-  }
 
-  for(int j=0; j<strlen(c); j++){
-    if(b[j] == c[j+1] && b[j+1] == c[j]) {
-      return 1;
+    for(int j=0; j<strlen(c); j++){
+      if(b[j] == c[j+1] && b[j+1] == c[j]) {
+        if(b[j] == c[j]) {
+          return 0;
+        }
+        else return 1;
+      }
     }
   }
   return 0;
